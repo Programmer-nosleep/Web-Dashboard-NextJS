@@ -1,5 +1,8 @@
 import Navbar, { NavLink } from "@/components/Navbar";
 
+
+export const dynamic = "force-dynamic";
+
 export default function AdminLayout({children}: Readonly<{ children: React.ReactNode; }>) {
   return (
     <>
@@ -10,7 +13,7 @@ export default function AdminLayout({children}: Readonly<{ children: React.React
         <NavLink href="/admin/sales">Sales</NavLink>
       </Navbar>
 
-      <div className="container my-6">
+      <div className="h-screen bg-gray-100">
         { children }
       </div>
     </>

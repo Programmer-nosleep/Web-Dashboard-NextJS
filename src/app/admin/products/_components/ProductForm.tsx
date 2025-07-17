@@ -38,7 +38,7 @@ export default function ProductForm() {
             name="priceInCents"
             placeholder="Enter number of price"
             value={priceInCents}
-            onChange={e => setPriceInCents(Number(e.target.value) || undefined)}
+            onChange={e => setPriceInCents(Number(e.target.value))}
             required
           />
           <div className="text-muted-foreground">{ formatCurrency((priceInCents || 0) / 100) }</div>

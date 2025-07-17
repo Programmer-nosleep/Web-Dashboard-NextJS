@@ -1,9 +1,13 @@
 import { Button } from "@/components/ui/button";
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
+import { DropdownMenu, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
+import { formatCurrency } from "@/lib/formatters";
+import { CheckCircle2, MoreVertical, XCircle } from "lucide-react";
+
 import Link from "next/link";
 import PageHeader from "../../_components/pageHeader";
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
-import { formatCurrency } from "@/lib/formatters";
 import db from "@/config/db";
+import { DropdownMenuContent } from "@/components/ui/dropdown-menu";
 
 export default function AdminProductsPage() {
   return (
@@ -43,6 +47,7 @@ async function ProductsTable() {
             <TableHead>Name</TableHead>
             <TableHead>Price</TableHead>
             <TableHead>Orders</TableHead>
+            <TableHead>Status</TableHead>
             <TableHead className="text-right w-24">
               <span className="sr-only">Actions</span>
             </TableHead>
@@ -63,12 +68,58 @@ async function ProductsTable() {
               <TableCell className="text-sm text-gray-700">
                 {product._count.orders}
               </TableCell>
-              <TableCell className="text-right">
-                <Button variant="outline" size="sm" asChild>
-                  <Link href={`/admin/products/${product.id}`}>
-                    Manage
-                  </Link>
-                </Button>
+              <TableCell className="text-sm text-gray-700">
+                { product.isAvailableForPurchse ? (
+                  <>
+                    <span className="sr-only">Available</span>
+                    <CheckCircle2 className="text-green-600" />
+                  </>
+                ) : (
+                  <>
+                    <span className="sr-only">Unavailable</span>
+                    <XCircle className="text-red-600" />
+                  </>
+                )}
+              </TableCell>
+              <TableCell className="text-sm text-right w-[100px]">
+                <div className="flex items-center">
+                  <div className="px-1">
+                    <Button variant="outline" size="sm" asChild>
+                      <Link href={`/admin/products/${product.id}`}>
+                        Manage
+                      </Link>
+                    </Button>
+                  </div>
+                  <div className="px-1">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon" className="group hover:bg-gray-100 focus:bg-gray-100 transition">
+                          <MoreVertical className="w-4 h-4" />
+                          <span className="sr-only">Open menu</span>
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-32 p-3 flex flex-col">
+                        <DropdownMenuItem asChild>
+                          <a
+                            download
+                            href={`/admin/products/${product.id}/download`}
+                            className="mb-2 text-sm"
+                          >
+                            Download
+                          </a>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <a
+                            href={`/admin/products/${product.id}/edit`}
+                            className="text-sm"
+                          >
+                            Edit
+                          </a>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </div>
               </TableCell>
             </TableRow>
           ))}

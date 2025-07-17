@@ -29,7 +29,7 @@ async function ProductsTable() {
       id: true,
       name: true,
       priceInCents: true,
-      isAvailableForPurchse: true,
+      isAvailableForPurchase: true,
       _count: { select: { orders: true } },
     },
     orderBy: { name: "asc" },
@@ -69,7 +69,7 @@ async function ProductsTable() {
                 {product._count.orders}
               </TableCell>
               <TableCell className="text-sm text-gray-700">
-                { product.isAvailableForPurchse ? (
+                { product.isAvailableForPurchase ? (
                   <>
                     <span className="sr-only">Available</span>
                     <CheckCircle2 className="text-green-600" />

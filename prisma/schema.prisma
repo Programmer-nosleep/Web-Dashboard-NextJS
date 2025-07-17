@@ -21,7 +21,7 @@ model Product {
   filePath String
   imagePath String
   description String
-  isAvailableForPurchse Boolean @default(true)
+  isAvailableForPurchase Boolean @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
